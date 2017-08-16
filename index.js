@@ -1,5 +1,5 @@
 const express         = require('express');
-const users           = require('./data.js');
+const data           = require('./data.js');
 const mustacheExpress = require('mustache-express');
 const app             = express();
 
@@ -11,15 +11,12 @@ app.set('view engine', 'mustache');
 app.use(express.static('./public'));
 
 app.get('/', function (req, res) {
-  res.render('index', {users: users});
+  res.render('index', data);
 });
 
-// app.get('/', function (req, res) {
-//   res.render('profile', {users: users});
-// });
-
 app.get('/listing/:id', function (req, res) {
-  res.render('profile', {users: users});
+  let users = data.users[req.params.id -1];
+  res.render('listing', data);
 });
 
 app.listen(3000,function() {

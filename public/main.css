@@ -1,0 +1,79 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+h1{
+  text-align: center;
+  color: black;
+  font-size: 40px;
+}
+
+.results{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+
+.profile{
+  display: flex;
+  align-items: left;
+  justify-content: space-around;
+  text-align: left;
+  word-wrap: normal;
+  flex-direction: column;
+  height: 280px;
+  width: 200px;
+  margin: 10px;
+  padding:10px;
+  border: 1px solid black;
+  flex-wrap: nowrap;
+  text-decoration: none;
+}
+
+.profile img{
+  align-self: center;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:visited  {
+  text-decoration: none;
+  color: black;
+}
+
+a h3  {
+  text-decoration: none;
+  color: blue;
+}
+
+#noJob{
+  color: red;
+}
+
+/*individual profiles*/
+
+.individualProfile{
+  display: flex;
+  justify-content: left;
+  /*word-wrap: normal;*/
+  flex-direction: row;
+  height: 300px;
+  width: 600px;
+  margin: 10px;
+  padding:10px;
+  border: 1px solid black;
+  flex-wrap: wrap;
+  text-decoration: none;
+}
+
+.individualProfile img{
+  border-radius: 50%;
+  border: 2px solid gray;
+  align-self: flex-start;
+}

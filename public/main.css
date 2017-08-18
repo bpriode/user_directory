@@ -60,10 +60,10 @@ a h3  {
 
 .individualProfile{
   display: flex;
-  align-content: flex-start;
-  text-align: right;
-  flex-direction: row;
-  height: 300px;
+  align-content: center;
+  text-align: center;
+  flex-direction: column;
+  height: 270px;
   width: 600px;
   margin: 10px;
   padding:10px;

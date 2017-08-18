@@ -8,18 +8,19 @@
   <body>
 
     <div class="results">
-    {{#users}}
+
 
     <a href="/listing/{{id}}">
 
 
     <div class="individualProfile">
       <img src="{{avatar}}" alt="{{name}}"/>
-      <h1>{{name}}</h1>
-      <p>{{street_num.city}}</p>
+      <h3>{{name}}</h3>
+      <p>{{users.address.street_num.city}}</p>
       <div>
       {{#job}}
-      <p> {{company}}, {{job}}</p>
+      <p> {{company}}</p>
+      <p>{{job}}</p>
       {{/job}}
       {{^job}}
       <p id="noJob">Available for Hire</p>
@@ -38,10 +39,9 @@
       </div>
 
 
-</div>
-    </a>
+      </div>
 
-    {{/users}}
+    </a>
 
     </div>
 

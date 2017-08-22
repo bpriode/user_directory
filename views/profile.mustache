@@ -1,0 +1,36 @@
+
+
+
+
+
+    <div class="individualProfile">
+      <img src="{{avatar}}" alt="{{name}}"/>
+      <h3>{{name}}</h3>
+      <a href="/listing/{{address.country}}">
+      <p>{{address.country}}</p>
+      </a>
+      <div>
+      {{#job}}
+      <p> {{company}}</p>
+      <p>{{job}}</p>
+      {{/job}}
+      {{^job}}
+      <p id="noJob">Available for Hire</p>
+      {{/job}}
+      </div>
+      <p>{{email}}, {{phone}}</p>
+
+      <div class="education">
+        {{#university}}
+          <p>Education:{{university}}</p>
+          <p>Skills: {{skills}}</p>
+        {{/university}}
+        {{^university}}
+          <p>Skills: {{skills}}</p>
+        {{/university}}
+      </div>
+
+
+      </div>
+
+    </div>

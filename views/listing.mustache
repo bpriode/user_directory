@@ -1,49 +1,32 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/main.css">
-  </head>
-  <body>
-
-    <div class="results">
 
 
-    <a href="/listing/{{id}}">
+    {{#users}}
 
 
-    <div class="individualProfile">
+      <div class="profile">
+
       <img src="{{avatar}}" alt="{{name}}"/>
+
+
       <h3>{{name}}</h3>
-      <p>{{users.address.street_num.city}}</p>
-      <div>
+      <a href="/listing/{{address.country}}">
+      <p>{{address.country}}</p>
+      </a>
+
+
+    <div>
       {{#job}}
-      <p> {{company}}</p>
-      <p>{{job}}</p>
+      <p> {{company}}, {{job}}</p>
       {{/job}}
       {{^job}}
       <p id="noJob">Available for Hire</p>
       {{/job}}
-      </div>
-      <p>{{email}}, {{phone}}</p>
-
-      <div class="education">
-        {{#university}}
-          <p>Education:{{university}}</p>
-          <p>Skills: {{skills}}</p>
-        {{/university}}
-        {{^university}}
-          <p>Skills: {{skills}}</p>
-        {{/university}}
-      </div>
-
-
-      </div>
-
-    </a>
-
+      <a href="/listing/{{id}}">
+      <p>{{name}}'s Profile</p>
+      </a>
     </div>
 
-  </body>
-</html>
+      </div>
+
+
+    {{/users}}

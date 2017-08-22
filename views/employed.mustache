@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/main.css">
-  </head>
 
-  <body>
-
-    <h1>User Directory</h1>
-
-    <div class="results">
     {{#users}}
 
-    <a href="/listing/{{id}}">
+
 
       <div class="profile">
 
@@ -21,7 +9,9 @@
 
 
       <h3>{{name}}</h3>
-
+      <a href="/country/{{address.country}}">
+      <p>{{address.country}}</p>
+      </a>
 
     <div>
       {{#job}}
@@ -30,14 +20,12 @@
       {{^job}}
       <p id="noJob">Available for Hire</p>
       {{/job}}
+      <a href="/listing/{{id}}">
+      <p>{{name}}'s Profile</p>
+      </a>
     </div>
 
       </div>
-    </a>
+
 
     {{/users}}
-
-
-    </div>
-  </body>
-</html>

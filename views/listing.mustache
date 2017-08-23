@@ -2,6 +2,7 @@
 
     {{#users}}
 
+    <a href="/listing/{{id}}">
 
       <div class="profile">
 
@@ -9,9 +10,6 @@
 
 
       <h3>{{name}}</h3>
-      <a href="/listing/{{address.country}}">
-      <p>{{address.country}}</p>
-      </a>
 
 
     <div>
@@ -21,12 +19,13 @@
       {{^job}}
       <p id="noJob">Available for Hire</p>
       {{/job}}
-      <a href="/listing/{{id}}">
-      <p>{{name}}'s Profile</p>
-      </a>
+
+
     </div>
 
       </div>
+
+        </a>
 
 
     {{/users}}

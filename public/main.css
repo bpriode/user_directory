@@ -1,6 +1,7 @@
 body{
   margin: 0;
   padding: 0;
+  font-family: 'Encode Sans Semi Condensed', sans-serif;
 }
 
 h1{
@@ -10,14 +11,21 @@ h1{
 }
 
 #nav{
+  display: flex;
+  justify-content: flex-end;
   background-color: gray;
-  height: 50px;
+  height: 70px;
+
 }
 
 #nav a{
   color: white;
-  border: 2px solid black;
+  border: 2px solid white;
   padding: 10px;
+  padding-top: 20px;
+  margin: 5px 10px 5px 10px
+
+
 }
 
 .results{
@@ -35,7 +43,7 @@ h1{
   text-align: left;
   word-wrap: normal;
   flex-direction: column;
-  height: 400px;
+  height: 350px;
   width: 200px;
   margin: 10px;
   padding:10px;
@@ -74,9 +82,9 @@ a h3  {
   align-content: center;
   text-align: center;
   flex-direction: column;
-  height: 270px;
-  width: 600px;
-  margin: 10px;
+  height: 600px;
+  width: 400px;
+  margin: 50px;
   padding:10px;
   border: 1px solid black;
   flex-wrap: wrap;
@@ -86,4 +94,11 @@ a h3  {
 .individualProfile img{
   border-radius: 50%;
   border: 2px solid gray;
+  height: 200px;
+  width: 200px;
+  align-self: center;
+}
+
+.individualProfile h3{
+  color: blue;
 }

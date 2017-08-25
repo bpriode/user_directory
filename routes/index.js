@@ -20,7 +20,7 @@ const requireLogin = function (req, res, next) {
 
 const login = function (req, res, next) {
   if (req.user) {
-    res.redirect("/user")
+    res.redirect("/listing")
   } else {
     next();
   }
@@ -33,9 +33,9 @@ router.get("/", login, function(req, res) {
   });
 });
 
-router.post('/login', passport.authenticate('local', {
+router.post('/', passport.authenticate('local', {
     successRedirect: '/listing',
-    failureRedirect: '/login',
+    failureRedirect: '/',
     failureFlash: true
 }));
 
@@ -66,7 +66,7 @@ router.post("/signup", function(req, res) {
   })
   .then(function(data) {
     console.log(data);
-    res.redirect("/");
+    res.redirect("/login");
   })
   .catch(function(err) {
     console.log(err);
@@ -75,7 +75,17 @@ router.post("/signup", function(req, res) {
 });
 
 router.get("/listing", requireLogin, function(req, res) {
-  res.render("listing");
+  User.find({}).sort('name')
+  .then(function(users) {
+    data = users;
+      res.render('listing', {users: users});
+    next();
+  })
+  .catch(function(err) {
+    console.log(err);
+    next(err);
+  })
+  // res.render("listing");
 });
 
 router.get("/logout", function(req, res) {
@@ -87,24 +97,24 @@ router.get("/logout", function(req, res) {
 
 
 
-// let getData = function (db, callback) {
-//   let users = db.collection('users');
-//
-//     users.find({}).toArray().sort({'name': 1}).then(function(users) {
-//         data = users;
-//         callback();
-//     });
-// };
+let getData = function (db, callback) {
+  let users = db.collection('users');
+
+    User.find({}).toArray().sort({'name': 1}).then(function(users) {
+        data = users;
+        callback();
+    });
+};
 
 
 
 
-router.get('/', function (req, res) {
+router.get('/listing', function (req, res) {
 
   User.find({}).sort('name')
   .then(function(users) {
     data = users;
-      res.render('login', {users: users});
+      res.render('listing', {users: users});
     next();
   })
   .catch(function(err) {
@@ -151,6 +161,16 @@ router.get('/listing/:id', function (req, res) {
 
   res.render('profile', profile);
 });
+
+// router.get('/edit/:id', function (req, res) {
+//   let editId = req.params.id;
+//
+//   let userEdit = data.find(function(user) {
+//     return user.id == editId;
+//   })
+//
+//   res.render('edit', userEdit);
+// });
 
 
 module.exports = router;

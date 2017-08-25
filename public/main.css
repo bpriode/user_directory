@@ -106,3 +106,20 @@ a h3  {
 #editP{
   color: green;
 }
+
+.login input{
+  height: 30px;
+  margin: 10px;
+  width: 200px;
+}
+
+.login button{
+  margin: 10px;
+  width:100px;
+  height: 20px;
+}
+
+.login a{
+  color: red;
+  font-size: 16px;
+}

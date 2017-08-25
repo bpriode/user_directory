@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     street_name: {type: String},
     city: {type: String},
     state_or_province: {type: String},
-    postal_code: {type: String},
+    postal_code: {type: Number, required: false},
     country: {type: String}
   }
 });

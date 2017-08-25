@@ -1,112 +1,148 @@
-const express = require('express');
-const router  = express.Router();
+const express  = require('express');
+const User     = require('../model/user');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const router   = express.Router();
 
 let data = [];
 
-const getListings = function(req, res, next) {
-  let MongoClient = require('mongodb').MongoClient;
-  let assert = require('assert');
 
-  let url = "mongodb://localhost:27017/robots";
+mongoose.connect("mongodb://localhost:27017/robots");
 
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
+const requireLogin = function (req, res, next) {
+  if (req.user) {
+    console.log(req.user)
+    next()
+  } else {
+    res.redirect('/');
+  }
+};
 
-    getData(db, function() {
-      db.close();
-      next();
-    });
+const login = function (req, res, next) {
+  if (req.user) {
+    res.redirect("/user")
+  } else {
+    next();
+  }
+};
+
+router.get("/", login, function(req, res) {
+
+  res.render("login", {
+      messages: res.locals.getMessages()
   });
-
-  let getData = function (db, callback) {
-    let users = db.collection('users');
-
-    users.find({}).sort({'name': 1}).toArray().then(function(users) {
-        data = users;
-        callback();
-    });
-  };
-
-};
-
-const getLooking = function(req, res, next) {
-  let MongoClient = require('mongodb').MongoClient;
-  let assert = require('assert');
-
-  let url = "mongodb://localhost:27017/robots";
-
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-
-    getData(db, function() {
-      db.close();
-      next();
-    });
-  });
-
-  let getData = function (db, callback) {
-    let users = db.collection('users');
-
-    users.find({'job': null}).sort({'name': 1}).toArray().then(function(users) {
-        data = users;
-        callback();
-    });
-  };
-
-};
-
-const getEmployed = function(req, res, next) {
-  let MongoClient = require('mongodb').MongoClient;
-  let assert = require('assert');
-
-  let url = "mongodb://localhost:27017/robots";
-
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-
-    getData(db, function() {
-      db.close();
-      next();
-    });
-  });
-
-  let getData = function (db, callback) {
-    let users = db.collection('users');
-
-    users.find({'job': {$nin: [null]}}).sort({'name': 1}).toArray().then(function(users) {
-        data = users;
-        callback();
-    });
-  };
-};
-
-
-
-let getData = function (db, callback) {
-  let users = db.collection('users');
-
-    users.find({}).toArray().sort({'name': 1}).then(function(users) {
-        data = users;
-        callback();
-    });
-};
-
-
-
-
-router.get('/', getListings, function (req, res) {
-  res.render('listing', {users: data});
 });
 
-router.get('/looking', getLooking, function (req, res) {
-  res.render('looking', {users: data});
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/listing',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
+router.get("/signup", function(req, res) {
+  res.render("signup", {users: data});
 });
 
-router.get('/employed', getEmployed, function (req, res) {
-  res.render('employed', {users: data});
+router.post("/signup", function(req, res) {
+  User.create({
+    username: req.body.username,
+    password: req.body.password,
+    name: req.body.name,
+    avatar:req.body.avatar,
+    email: req.body.email,
+    university: req.body.university,
+    job: req.body.job,
+    company: req.body.company,
+    skills: [req.body.skills],
+    phone: req.body.phone,
+    address: {
+        street_num: req.body.streetNum,
+        street_name: req.body.streetName,
+        city: req.body.city,
+        state_or_province: req.body.stateProvince,
+        postal_code: req.body.postalCode,
+        country: req.body.country
+    }
+  })
+  .then(function(data) {
+    console.log(data);
+    res.redirect("/");
+  })
+  .catch(function(err) {
+    console.log(err);
+    res.redirect("/signup");
+  });
 });
 
-router.get('/listing/:id', getListings, function (req, res) {
+router.get("/listing", requireLogin, function(req, res) {
+  res.render("listing");
+});
+
+router.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/");
+});
+
+
+
+
+
+// let getData = function (db, callback) {
+//   let users = db.collection('users');
+//
+//     users.find({}).toArray().sort({'name': 1}).then(function(users) {
+//         data = users;
+//         callback();
+//     });
+// };
+
+
+
+
+router.get('/', function (req, res) {
+
+  User.find({}).sort('name')
+  .then(function(users) {
+    data = users;
+      res.render('login', {users: users});
+    next();
+  })
+  .catch(function(err) {
+    console.log(err);
+    next(err);
+  })
+});
+
+
+router.get('/looking', function (req, res) {
+
+  User.find({'job': null}).sort('name')
+  .then(function(users) {
+    data = users
+      res.render('looking', {users: users});
+    next();
+  })
+  .catch(function(err) {
+    console.log(err);
+    next(err);
+  })
+});
+
+router.get('/employed', function (req, res) {
+
+  User.find({'job': {$nin: [null]}}).sort('name')
+  .then(function(users) {
+    data = users
+      res.render('employed', {users: users});
+    next();
+  })
+  .catch(function(err) {
+    console.log(err);
+    next(err);
+  })
+});
+
+router.get('/listing/:id', function (req, res) {
   let id = req.params.id;
 
   let profile = data.find(function(user) {

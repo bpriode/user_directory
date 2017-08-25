@@ -162,15 +162,44 @@ router.get('/listing/:id', function (req, res) {
   res.render('profile', profile);
 });
 
-// router.get('/edit/:id', function (req, res) {
-//   let editId = req.params.id;
-//
-//   let userEdit = data.find(function(user) {
-//     return user.id == editId;
-//   })
-//
-//   res.render('edit', userEdit);
-// });
+router.get('/edit/:id', function(req, res){
+  let editId = req.params.id;
+  // User.find({id: id})
+  // .then(function(user){
+  let userEdit = data.find(function(user){
+    return user.id == editId;
+  })
+    res.render('edit', {users: userEdit})
+  // })
+});
+
+router.post('/edit/:id', function(req, res) {
+
+  let userEdit = req.params.id
+
+  User.updateOne({users: userEdit}, {
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      avatar:req.body.avatar,
+      email: req.body.email,
+      university: req.body.university,
+      job: req.body.job,
+      company: req.body.company,
+      skills: [req.body.skills],
+      phone: req.body.phone,
+      address: {
+          street_num: req.body.streetNum,
+          street_name: req.body.streetName,
+          city: req.body.city,
+          state_or_province: req.body.stateProvince,
+          postal_code: req.body.postalCode,
+          country: req.body.country
+        }
+}).then(function(data) {
+      res.redirect('/profile');
+    })
+})
 
 
 module.exports = router;

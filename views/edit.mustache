@@ -1,1 +1,50 @@
-<h1>edit</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../main.css">
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed" rel="stylesheet">
+  </head>
+  <body>
+    <div class="results">
+  {{#users}}
+      <form class="" action="/edit/{{id}}" method="post">
+        <h1>Edit Your Profile</h1>
+
+        <p>Create a Username and Password</p>
+        <input type="username" name="username" placeholder="username" value="{{username}}">
+        <input type="password" name="password" placeholder="password "value="{{password}}">
+
+        <br>
+        <p>Tell Us About Yourself</p>
+        <input type="text" name="name" placeholder="name" value="{{name}}">
+        <input type="email" name="email" placeholder="email" value="{{email}}">
+        <input type="tel" name="phone" placeholder="phone number" value="{{phone}}">
+
+        <br>
+        <p>Where are you Located?</p>
+        <input type="number" name="street_num" placeholder="street number"value="{{address.street_num}}">
+        <input type="text" name="street_name" placeholder="street name" value="{{address.street_name}}">
+        <input type="text" name="city" placeholder="city" value="{{address.city}}">
+        <input type="text" name="state_or_province" placeholder="state or province" value="{{address.state_or_province}}">
+        <input type="text" name="postal_code" placeholder="postal code" value="{{address.postal_code}}">
+        <input type="text" name="country" placeholder="country" value="{{address.country}}">
+
+        <br>
+        <p>Tell Us About Your Professional Background</p>
+        <input type="text" name="university" placeholder="university" value="{{university}}">
+        <input type="text" name="job" placeholder="job" value="{{job}}">
+        <input type="text" name="company" placeholder="company" value="{{company}}">
+        <input type="text" name="skills" placeholder="skills" value="{{skills}}">
+
+        <br>
+        <br>
+        <input type="submit" name="submit" placeholder="submit">
+
+      </form>
+{{/users}}
+
+    </div>
+  </body>
+</html>

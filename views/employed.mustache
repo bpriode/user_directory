@@ -5,7 +5,12 @@
 
       <div class="profile">
 
+        {{#avatar}}
       <img src="{{avatar}}" alt="{{name}}"/>
+        {{/avatar}}
+        {{^avatar}}
+      <img src="https://robohash.org/avatar.png?size=150x150&set=set1" alt="{{name}}">
+        {{/avatar}}
 
 
       <h3>{{name}}</h3>

@@ -82,7 +82,7 @@ a h3  {
   align-content: center;
   text-align: center;
   flex-direction: column;
-  height: 600px;
+  height: 700px;
   width: 400px;
   margin: 50px;
   padding:10px;
@@ -105,6 +105,8 @@ a h3  {
 
 #editP{
   color: green;
+  font-size: 20px;
+
 }
 
 .login input{

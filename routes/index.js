@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost:27017/robots");
 
 const requireLogin = function (req, res, next) {
   if (req.user) {
-    console.log(req.user)
+    // console.log(req.user)
     next()
   } else {
     res.redirect('/');
@@ -73,11 +73,11 @@ router.post("/signup", function(req, res) {
     }
   })
   .then(function(data) {
-    console.log(data);
+    // console.log(data);
     res.redirect("/login");
   })
   .catch(function(err) {
-    console.log(err);
+    // console.log(err);
     res.redirect("/signup");
   });
 });
@@ -89,7 +89,7 @@ router.get("/listing", function(req, res) {
       res.render('listing', {users: users});
   })
   .catch(function(err) {
-    console.log(err);
+    // console.log(err);
 
   })
   // res.render("listing");
@@ -125,13 +125,13 @@ router.get('/listing', function (req, res) {
     next();
   })
   .catch(function(err) {
-    console.log(err);
+    // console.log(err);
     next(err);
   })
 });
 
 
-router.get('/looking', requireLogin, function (req, res, next) {
+router.get('/looking', requireLogin, function (req, res) {
 
   User.find({'job': null}).sort('name')
   .then(function(users) {
@@ -140,21 +140,21 @@ router.get('/looking', requireLogin, function (req, res, next) {
     next();
   })
   .catch(function(err) {
-    console.log(err);
+    // console.log(err);
     // next(err);
   })
 });
 
-router.get('/employed', requireLogin, function (req, res, next) {
+router.get('/employed', requireLogin, function (req, res) {
 
   User.find({'job': {$nin: [null]}}).sort('name')
   .then(function(users) {
     data = users
-      res.render('employed', {users: users});
+    res.render('employed', {users: users});
     next();
   })
   .catch(function(err) {
-    console.log(err);
+    // console.log(err);
     // next(err);
   })
 });
@@ -181,7 +181,7 @@ router.post('/edit/:id', function(req, res) {
 
   let userEdit = req.params.id
 
-  console.log("Request body: ", req.body);
+  // console.log("Request body: ", req.body);
 
   User.update({_id: userEdit}, {
       username: req.body.username,
